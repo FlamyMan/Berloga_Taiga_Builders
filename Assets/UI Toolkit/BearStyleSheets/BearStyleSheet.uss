@@ -1,0 +1,18 @@
+.bear_styled_button {
+    background-image: url("project://database/Assets/Textures/UI/Default_Button.png?fileID=2800000&guid=e03176312b198c1488fb6b865b9c4388&type=3#Default_Button");
+    -unity-background-image-tint-color: rgb(0, 198, 255);
+    border-bottom-width: 0;
+    background-color: rgba(0, 0, 0, 0);
+    width: 120px;
+    height: 120px;
+}
+
+.bear_styled_button:hover {
+    -unity-background-image-tint-color: rgb(0, 143, 186);
+    transition-duration: 0.1s;
+}
+
+.bear_styled_button:active {
+    display: flex;
+    -unity-background-image-tint-color: rgb(0, 129, 233);
+}

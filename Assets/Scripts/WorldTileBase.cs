@@ -7,6 +7,6 @@ namespace Assets.Scripts
     {
         public int id;
         public Vector3 size;
-        public Texture2D Texture;
+        public Sprite Sprite;
     }
 }

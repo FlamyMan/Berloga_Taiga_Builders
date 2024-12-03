@@ -3,12 +3,10 @@ using UnityEngine.Tilemaps;
 
 public class World : MonoBehaviour
 {
-    private Tilemap _tilemap;
+    [SerializeField] private Tilemap _baseTilemap;
+    [SerializeField] private Tilemap _industrialTilemap;
 
-    private void Start()
-    {
-        _tilemap = GetComponent<Tilemap>();
-    }
+
 
 
 }
