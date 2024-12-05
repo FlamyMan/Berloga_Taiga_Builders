@@ -1,9 +1,10 @@
-<?xml version="1.0" encoding="utf-8"?>
-<engine:UXML
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:engine="UnityEngine.UIElements"
-    xmlns:editor="UnityEditor.UIElements"
-    xsi:noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd"
->
-    
+<engine:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:engine="UnityEngine.UIElements" xmlns:editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI%20Toolkit/BearStyleSheets/BearStyleSheet.uss?fileID=7433441132597879392&amp;guid=c6fca00d213bdf34299e5750dd0b260d&amp;type=3#BearStyleSheet" />
+    <engine:VisualElement name="Container" style="flex-grow: 1;">
+        <engine:VisualElement name="Panel" style="flex-grow: 1; width: 776px; height: 1124px; left: auto; top: auto; right: auto; bottom: auto; align-self: center; justify-content: center; padding-top: 100px; padding-bottom: 100px; background-color: rgba(0, 0, 0, 0.41);">
+            <engine:Button name="ContinueButton" text="Continue" style="-unity-text-align: middle-center; width: 400px; height: 40px; align-self: center; top: auto; bottom: auto; left: auto; right: auto;" />
+            <engine:Button name="SettingsButton" text="Settings" style="-unity-text-align: middle-center; width: 400px; height: 40px; align-self: center; top: auto; bottom: auto; left: auto; right: auto;" />
+            <engine:Button name="ExitButton" text="Quit Game" style="-unity-text-align: middle-center; width: 400px; height: 40px; align-self: center; top: auto; bottom: auto; left: auto; right: auto;" />
+        </engine:VisualElement>
+    </engine:VisualElement>
 </engine:UXML>
