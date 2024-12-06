@@ -77,9 +77,9 @@ namespace Assets.Scripts.ServerRequests
             return JsonConvert.DeserializeObject<TResult>(raw);
         }
 
-        public static async Task<TResult> Post<TResult>(string url, string data, string contentType)
+        public static async Task<TResult> Post<TResult>(string url, string data, string contentType, Dictionary<string, string> headers = null)
         {
-            string raw = await PostRaw(url, data, contentType);
+            string raw = await PostRaw(url, data, contentType, headers);
             return JsonConvert.DeserializeObject<TResult>(raw);
         }
 
@@ -89,10 +89,10 @@ namespace Assets.Scripts.ServerRequests
             return JsonConvert.DeserializeObject<TResult>(raw);
         }
 
-        public static async Task<TResult> Post<TResult>(string url, object data)
+        public static async Task<TResult> Post<TResult>(string url, object data, Dictionary<string, string> headers = null)
         {
             string json = JsonConvert.SerializeObject(data);
-            return await Post<TResult>(url, json, JsonContentType);
+            return await Post<TResult>(url, json, JsonContentType, headers);
         }
 
         public static async Task<TResult> Put<TResult>(string url, object data)

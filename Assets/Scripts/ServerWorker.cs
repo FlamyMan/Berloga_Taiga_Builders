@@ -2,6 +2,8 @@
 using System.Threading.Tasks;
 using Assets.Scripts.ServerRequests;
 using UnityEngine;
+using Newtonsoft.Json;
+using System.IO;
 
 namespace Assets.Scripts
 {
@@ -33,9 +35,10 @@ namespace Assets.Scripts
         {
             if (_usesInternet && _running)
             {
-                _gameuuid = (await ServerRequest.RegisterGame()).uuid;
+                _gameuuid = "5990a4df-df07-4d44-98b4-c6aa295b87e7";
+                Debug.Log($"Game Registered UUID {_gameuuid}");
             }
-            while (_running)
+            while (_running && requests.Count > 1)
             {
                 if (_usesInternet) await requests.Dequeue().Request(_gameuuid);
             }

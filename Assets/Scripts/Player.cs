@@ -6,7 +6,6 @@ namespace Assets.Scripts
 {
     public class Player : MonoBehaviour
     {
-        [SerializeField] 
         private Dictionary<string, int> _resourcesCount;
         public IReadOnlyDictionary<string, int> ResourcesCount => _resourcesCount;
 

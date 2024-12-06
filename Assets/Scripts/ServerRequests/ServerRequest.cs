@@ -1,31 +1,9 @@
-﻿using System;
-using System.Security.Cryptography;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 
 namespace Assets.Scripts.ServerRequests
 {
     public static class ServerRequest
     {
-        public async static Task<RegisterGameOutput> RegisterGame()
-        {
-            const string url = "https://2025.nti-gamedev.ru/api/games/";
-            string talant_id = "549507";
-            DateTime currentTime = DateTime.UtcNow;
-            string nonce = ((DateTimeOffset)currentTime).ToUnixTimeSeconds().ToString();
-            string signature;
-            using (MD5 md5 = MD5.Create())
-            {
-                byte[] hash = md5.ComputeHash(Encoding.UTF8.GetBytes($"{talant_id}{nonce}"));
-                StringBuilder sb = new StringBuilder();
-                foreach (byte b in hash)
-                    sb.Append(b.ToString("X2"));
-                signature = sb.ToString();
-            }
-            string req = "{\"team_name\": PYRO Studio}";
-            return await RequestBehavior.Post<RegisterGameOutput>(url, req, RequestBehavior.JsonContentType);
-        }
-
         public async static Task<PlayerData> CreatePlayer(string gameuuid, PlayerData data)
         {
             string url = string.Format("https://2025.nti-gamedev.ru/api/games/{0}/players/", gameuuid);
