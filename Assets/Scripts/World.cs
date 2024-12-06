@@ -3,10 +3,8 @@ using UnityEngine.Tilemaps;
 
 public class World : MonoBehaviour
 {
-    [SerializeField] private Tilemap _baseTilemap;
-    [SerializeField] private Tilemap _industrialTilemap;
-
-
+    public Tilemap BaseTilemap;
+    public Tilemap IndustrialTilemap;
 
 
 }
