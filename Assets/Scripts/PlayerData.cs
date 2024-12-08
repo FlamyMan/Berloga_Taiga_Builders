@@ -9,7 +9,8 @@ namespace Assets.Scripts
 
         public PlayerData(string username, Dictionary<string, int> resources)
         {
-            this.name = username;
+            name = username;
+            this.resources = resources;
         }
     }
 }

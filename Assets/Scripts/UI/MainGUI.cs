@@ -23,6 +23,7 @@ namespace Assets.Scripts
 
         private void OnEnable()
         {
+            UpdateCounts();
             var root = _document.rootVisualElement;
             root.dataSource = resourcesGUI;
             _pauseButton = root.Q<Button>("PauseButton");
@@ -38,6 +39,24 @@ namespace Assets.Scripts
             }
             _pauseButton.clicked += Pause;
             _shopButton.clicked += OpenShop;
+            _player.OnResourcesChanged += UpdateCounts;
+        }
+
+        private void UpdateCounts()
+        {
+            print("updating");
+            var resp = _player.ResourcesCount;
+            foreach(var res in resourcesGUI)
+            {
+                if (resp.TryGetValue(res.resource_id, out var count))
+                {
+                    res.Count = count;
+                }
+                else
+                {
+                    res.Count = 0;
+                }
+            }
         }
 
         private void OnDisable()
@@ -65,6 +84,7 @@ namespace Assets.Scripts
     public class GameResourceGUI
     {
         public Texture2D Icon;
+        public string resource_id;
         public int Count;
     }
 }

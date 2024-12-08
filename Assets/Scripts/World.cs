@@ -48,7 +48,6 @@ namespace Assets.Scripts
         {
             while (enabled)
             {
-                Debug.Log("Another tick is running");
                 OnTick?.Invoke();
                 PushResources();
                 yield return new WaitForSecondsRealtime(tick_seconds);

@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Tilemaps;
+using System;
 
 namespace Assets.Scripts
 {
@@ -8,8 +9,10 @@ namespace Assets.Scripts
     {
         [SerializeField] private PlayerInput input;
         [SerializeField] private World world;
+        [SerializeField] public TileBase tileToPlace;
+        public Camera mainCamera;
+        public event Action OnPlaced;
 
-        public Camera mainCamera;      
 
         void Update()
         {
@@ -26,13 +29,14 @@ namespace Assets.Scripts
                     Vector3 worldPosition = ray.GetPoint(distance);
 
                     Vector3Int cellPosition = world.Buildings.WorldToCell(worldPosition);
-
-                    Vector3 tileCenter = world.Buildings.GetCellCenterWorld(cellPosition);
-
-                    Debug.Log($"Clicked Cell: {cellPosition}, Tile Center: {tileCenter}");
-                    transform.position = tileCenter;
+                    print(cellPosition);
+                    world.Buildings.SetTile(cellPosition, tileToPlace);
+                    OnPlaced?.Invoke();
+                    gameObject.SetActive(false);
                 }
             }
         }
+
+        
     }
 }

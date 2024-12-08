@@ -11,6 +11,7 @@ namespace Assets.Scripts
     public class Player : MonoBehaviour
     {
         private string _username;
+        public string Username => _username;
         private Dictionary<string, int> _resourcesCount = new();
         public IReadOnlyDictionary<string, int> ResourcesCount => _resourcesCount;
         public event Action OnResourcesChanged;
@@ -109,7 +110,7 @@ namespace Assets.Scripts
         private async Task GetAllResources()
         {
             var data = await ServerRequest.GetPlayer(_username);
-            if (data == null)
+            if (data == null) // network error
             {
                 _resourcesCount = CheckOldPlayerResources().resources;
                 return;
@@ -118,9 +119,9 @@ namespace Assets.Scripts
             if (_resourcesCount == null) 
             {
                 _resourcesCount = new Dictionary<string, int>();
-                data.resources = _resourcesCount;
+                await ServerRequest.UpdatePlayerResources(_username, new GameResources(){resources = _resourcesCount });
             };
-            WriteOldPlayerResources(data.resources);
+            WriteOldPlayerResources(_resourcesCount);
             OnResourcesChanged?.Invoke();
         }
 

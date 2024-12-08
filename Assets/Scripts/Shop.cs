@@ -25,11 +25,10 @@ namespace Assets.Scripts
             }
             else
             {
-                var sd = new ShopData() { name = name, resources = new Dictionary<string, int>() };
-                Debug.Log(JsonConvert.SerializeObject(sd));
+                var sd = new ShopData() { name = name};
                 if (await ServerRequest.CreateShop(Username, sd) != null)
                 {
-                    await ServerRequest.CreateShopLog(new ShopLog() { comment = "New Shop Initialized", player_name = username, shop_name = name, resources_changed = null });
+                    await ServerRequest.CreateShopLog(new ShopLog() { comment = "New Shop Initialized", player_name = username, shop_name = name, resources_changed = new Dictionary<string, string>() });
                     PlayerPrefs.SetInt(name, 1);
                     PlayerPrefs.Save();
                 }
