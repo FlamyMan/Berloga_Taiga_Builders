@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Tilemaps;
 
 namespace Assets.Scripts
 {
@@ -8,28 +9,30 @@ namespace Assets.Scripts
         [SerializeField] private PlayerInput input;
         [SerializeField] private World world;
 
-        public Vector3Int Position {get; private set;}
-        private void OnEnable()
-        {
-            input.actions.FindAction("Select").started += SelectField;
-        }
+        public Camera mainCamera;      
 
-        private void OnDisable()
+        void Update()
         {
-            input.actions.FindAction("Select").started -= SelectField;
-        }
+            if (Input.GetMouseButtonDown(0)) 
+            {
+                Vector3 screenPosition = Input.mousePosition;
 
-        private void SelectField(InputAction.CallbackContext obj)
-        {
-            var cell = world.Buildings.WorldToCell(Camera.main.ScreenToWorldPoint(Input.mousePosition));
-            Position = cell;
-            MoveToCell(Position);
-        }
+                Ray ray = mainCamera.ScreenPointToRay(screenPosition);
 
-        private void MoveToCell(Vector3Int pos)
-        {
-            print($"Moving to {pos}");
-            transform.position = world.Buildings.CellToWorld(pos);
+                Plane plane = new Plane(Vector3.forward, Vector3.zero);
+
+                if (plane.Raycast(ray, out float distance))
+                {
+                    Vector3 worldPosition = ray.GetPoint(distance);
+
+                    Vector3Int cellPosition = world.Buildings.WorldToCell(worldPosition);
+
+                    Vector3 tileCenter = world.Buildings.GetCellCenterWorld(cellPosition);
+
+                    Debug.Log($"Clicked Cell: {cellPosition}, Tile Center: {tileCenter}");
+                    transform.position = tileCenter;
+                }
+            }
         }
     }
 }

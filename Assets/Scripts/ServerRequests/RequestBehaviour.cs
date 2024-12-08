@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
@@ -10,15 +11,18 @@ namespace Assets.Scripts.ServerRequests
     {
         public const string JsonContentType = "application/json";
 
+        public const int GlobalTimeout = 1;
         public static async Task<string> GetRaw(string url)
         {
             using var www = UnityWebRequest.Get(url);
+            www.timeout = GlobalTimeout;
             var op = www.SendWebRequest();
             while (!op.isDone)
                 await Task.Yield();
-            if(www.result != UnityWebRequest.Result.Success)
+            if (www.result != UnityWebRequest.Result.Success)
             {
-                Debug.LogError($"Get failed {www.error}");
+                Debug.Log($"Get failed {www.error}\n Got Text: {www.downloadHandler.text}");
+                return null;
             }
 
             return www.downloadHandler.text;
@@ -27,9 +31,13 @@ namespace Assets.Scripts.ServerRequests
         public static async Task<string> PostRaw(string url, string data, string contentType, Dictionary<string, string> headers = null)
         {
             using var www = UnityWebRequest.Post(url, data, contentType);
-            foreach (var item in headers)
+            www.timeout = GlobalTimeout;
+            if (headers != null)
             {
-                www.SetRequestHeader(item.Key, item.Value);
+                foreach (var item in headers)
+                {
+                    www.SetRequestHeader(item.Key, item.Value);
+                }
             }
             var operation = www.SendWebRequest();
             while (!operation.isDone)
@@ -37,7 +45,8 @@ namespace Assets.Scripts.ServerRequests
 
             if (www.result != UnityWebRequest.Result.Success)
             {
-                Debug.LogError($"Post failed {www.error}");
+                Debug.Log($"Post failed {www.error}\n Got Text: {www.downloadHandler.text}");
+                return null;
             }
 
             return www.downloadHandler.text;
@@ -46,13 +55,16 @@ namespace Assets.Scripts.ServerRequests
         public static async Task<string> PutRaw(string url, string data)
         {
             using var www = UnityWebRequest.Put(url, data);
+            www.timeout = GlobalTimeout;
+            www.SetRequestHeader("Content-Type", JsonContentType);
             var operation = www.SendWebRequest();
             while (!operation.isDone)
                 await Task.Yield();
 
             if (www.result != UnityWebRequest.Result.Success)
             {
-                Debug.LogError($"Put failed {www.error}");
+                Debug.Log($"Put failed {www.error}\n Got text: {www.downloadHandler.text}");
+                return null;
             }
 
             return www.downloadHandler.text;
@@ -61,32 +73,69 @@ namespace Assets.Scripts.ServerRequests
         public static async Task DeleteRaw(string url)
         {
             using var www = UnityWebRequest.Delete(url);
+            www.timeout = GlobalTimeout;
             var operation = www.SendWebRequest();
             while (!operation.isDone)
                 await Task.Yield();
 
             if (www.result != UnityWebRequest.Result.Success)
             {
-                Debug.LogError($"Delete failed {www.error}");
+                Debug.LogError($"Delete failed {www.error}\n Got Text: {www.downloadHandler.text}");
             }
         }
 
         public static async Task<TResult> Get<TResult>(string url)
         {
-            string raw = await GetRaw(url);
-            return JsonConvert.DeserializeObject<TResult>(raw);
+            try
+            {
+                string raw = await GetRaw(url);
+                return JsonConvert.DeserializeObject<TResult>(raw);
+            }
+            catch (JsonException e)
+            {
+                Debug.LogError(e);
+                return default;
+            }
+            catch (ArgumentNullException)
+            {
+                return default;
+            }
         }
 
         public static async Task<TResult> Post<TResult>(string url, string data, string contentType, Dictionary<string, string> headers = null)
         {
-            string raw = await PostRaw(url, data, contentType, headers);
-            return JsonConvert.DeserializeObject<TResult>(raw);
+            try
+            {
+                string raw = await PostRaw(url, data, contentType, headers);
+                return JsonConvert.DeserializeObject<TResult>(raw);
+            }
+            catch (ArgumentNullException)
+            {
+                return default;
+            }
+            catch (JsonException e)
+            {
+                Debug.Log(e);
+                return default;
+            }
         }
 
         public static async Task<TResult> Put<TResult>(string url, string data)
         {
-            string raw = await PutRaw(url, data);
-            return JsonConvert.DeserializeObject<TResult>(raw);
+            try
+            {
+                string raw = await PutRaw(url, data);
+                return JsonConvert.DeserializeObject<TResult>(raw);
+            }
+            catch (ArgumentNullException)
+            {
+                return default;
+            }
+            catch (JsonException e)
+            {
+                Debug.Log(e);
+                return default;
+            }
         }
 
         public static async Task<TResult> Post<TResult>(string url, object data, Dictionary<string, string> headers = null)

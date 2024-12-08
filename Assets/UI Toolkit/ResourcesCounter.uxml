@@ -1,0 +1,11 @@
+<engine:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:engine="UnityEngine.UIElements" xmlns:editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI%20Toolkit/BearStyleSheets/BearStyleSheet.uss?fileID=7433441132597879392&amp;guid=c6fca00d213bdf34299e5750dd0b260d&amp;type=3#BearStyleSheet" />
+    <engine:VisualElement name="Container" style="flex-grow: 1; height: 50px; flex-direction: row; align-items: stretch; justify-content: space-around; align-self: stretch; background-image: url(&quot;project://database/Assets/Textures/UI/Quadratic_button.png?fileID=2800000&amp;guid=8befe63df01b0b546aa5a05067dd58a6&amp;type=3#Quadratic_button&quot;); -unity-background-image-tint-color: rgb(22, 27, 63); min-width: 200px;">
+        <engine:VisualElement name="Image" style="flex-grow: 1; align-self: stretch; justify-content: center; flex-direction: column; background-image: url(&quot;project://database/Assets/Textures/Tiles/Honey.png?fileID=2800000&amp;guid=1912aa3e06ad13242ad6596708ccba79&amp;type=3#Honey&quot;); width: 50px; max-width: 50px; -unity-background-scale-mode: scale-to-fit; background-position-x: center 0;" />
+        <engine:Label text="10&#10;" name="ItemCount" style="-unity-text-align: middle-center; -unity-background-image-tint-color: rgb(255, 255, 255); color: rgb(247, 236, 186);">
+            <Bindings>
+                <engine:DataBinding property="text" data-source-path="Count" binding-mode="ToTarget" />
+            </Bindings>
+        </engine:Label>
+    </engine:VisualElement>
+</engine:UXML>

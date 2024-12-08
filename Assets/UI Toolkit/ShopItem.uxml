@@ -1,0 +1,33 @@
+<engine:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:engine="UnityEngine.UIElements" xmlns:editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI%20Toolkit/BearStyleSheets/BearStyleSheet.uss?fileID=7433441132597879392&amp;guid=c6fca00d213bdf34299e5750dd0b260d&amp;type=3#BearStyleSheet" />
+    <engine:VisualElement name="Container" style="flex-grow: 1;">
+        <engine:Button name="ShopButton" parse-escape-sequences="false" selectable="false" double-click-selects-word="false" triple-click-selects-line="false" class="bear_styled_quadratic bear_styled_quad" style="height: 520px; width: 450px; align-items: center; flex-direction: column; justify-content: flex-start; color: rgb(247, 236, 186); font-size: 20px;">
+            <engine:VisualElement style="flex-grow: 1; width: 378px; justify-content: space-between; align-items: stretch; flex-direction: column-reverse; align-self: center;">
+                <engine:VisualElement style="flex-grow: 1; align-content: auto; align-self: stretch; justify-content: center; align-items: center; flex-direction: row;">
+                    <engine:VisualElement style="flex-grow: 1; align-self: stretch; flex-direction: row; align-items: stretch; justify-content: center;">
+                        <engine:VisualElement style="flex-grow: 1; align-self: auto; justify-content: center; background-image: url(&quot;project://database/Assets/Textures/Tiles/Honey.png?fileID=2800000&amp;guid=1912aa3e06ad13242ad6596708ccba79&amp;type=3#Honey&quot;); -unity-background-scale-mode: scale-to-fit; background-size: contain; margin-bottom: 0; margin-right: 0; margin-top: 0; margin-left: 0; padding-right: 0; padding-bottom: 0; padding-top: 0; padding-left: 0; flex-direction: row-reverse; -unity-text-align: middle-center; max-width: 50px;" />
+                        <engine:Label name="Price" text="1">
+                            <Bindings>
+                                <engine:DataBinding property="text" data-source-path="Price" binding-mode="ToTarget" />
+                            </Bindings>
+                        </engine:Label>
+                    </engine:VisualElement>
+                </engine:VisualElement>
+                <engine:Label name="Description" text="Label" style="height: 172px; -unity-text-align: upper-center; font-size: 14px;">
+                    <Bindings>
+                        <engine:DataBinding property="text" data-source-path="Base.Description" binding-mode="ToTarget" />
+                    </Bindings>
+                </engine:Label>
+                <engine:Label text="Name" name="Name">
+                    <Bindings>
+                        <engine:DataBinding property="text" data-source-path="Base.ItemName" binding-mode="ToTarget" />
+                    </Bindings>
+                </engine:Label>
+                <engine:VisualElement name="Icon-Image" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/Textures/Tiles/Tunnel.png?fileID=2800000&amp;guid=6f2ab18c9178c8e48aa28e24bb2679f7&amp;type=3#Tunnel&quot;); height: 244px; -unity-background-scale-mode: scale-and-crop;" />
+            </engine:VisualElement>
+            <Bindings>
+                <engine:DataBinding property="iconImage" data-source-path="Icon" binding-mode="ToTarget" />
+            </Bindings>
+        </engine:Button>
+    </engine:VisualElement>
+</engine:UXML>

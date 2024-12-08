@@ -1,0 +1,7 @@
+<engine:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:engine="UnityEngine.UIElements" xmlns:editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI%20Toolkit/BearStyleSheets/BearStyleSheet.uss?fileID=7433441132597879392&amp;guid=c6fca00d213bdf34299e5750dd0b260d&amp;type=3#BearStyleSheet" />
+    <engine:VisualElement name="Container" style="flex-grow: 1; justify-content: space-between;">
+        <engine:Button name="QuitButton" class="bear_styled" style="background-image: url(&quot;project://database/Assets/Textures/UI/Exit_Button.png?fileID=2800000&amp;guid=19cf9acc2419e37499c3e06598100279&amp;type=3#Exit_Button&quot;); -unity-background-image-tint-color: rgb(255, 255, 255); border-right-width: 0; border-top-width: 0; border-left-width: 0;" />
+        <engine:ScrollView name="items-scroll" mode="Horizontal" data-source-path="Items" style="height: 570px; bottom: auto; top: 500px; opacity: 1; display: flex; visibility: visible; width: 1900px; left: 10px; right: auto; position: absolute;" />
+    </engine:VisualElement>
+</engine:UXML>
